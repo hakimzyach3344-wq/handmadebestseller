@@ -199,10 +199,10 @@ export default function CheckoutPage() {
                         {items.map(item => (
                             <div key={item.id} className={styles.item}>
                                 <div className={styles.itemImageWrapper}>
-                                    <img src={item.image} alt={item.name} className={styles.itemImage} />
+                                    <img src={item.image} alt={item.title} className={styles.itemImage} />
                                 </div>
                                 <div className={styles.itemDetails}>
-                                    <span className={styles.itemName}>{item.name}</span>
+                                    <span className={styles.itemName}>{item.title}</span>
                                     <span className={styles.itemQty}>Qty: {item.quantity}</span>
                                 </div>
                                 <span className={styles.itemPriceLine}>${(item.price * item.quantity).toFixed(2)}</span>

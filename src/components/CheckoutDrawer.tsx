@@ -95,10 +95,10 @@ export default function CheckoutDrawer() {
                             {items.map(item => (
                                 <div key={item.id} className={styles.drawerItem}>
                                     <div className={styles.drawerItemImageWrapper}>
-                                        <img src={item.image} alt={item.name} className={styles.drawerItemImage} />
+                                        <img src={item.image} alt={item.title} className={styles.drawerItemImage} />
                                     </div>
                                     <div className={styles.drawerItemDetails}>
-                                        <h5 className={styles.drawerItemName}>{item.name}</h5>
+                                        <h5 className={styles.drawerItemName}>{item.title}</h5>
                                         <p className={styles.drawerItemQty}>Qty: {item.quantity}</p>
                                     </div>
                                     <div className={styles.drawerItemPrice}>
