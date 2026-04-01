@@ -15,4 +15,6 @@ export interface Product {
   outOfStock?: boolean;
   variationTypes?: Record<string, string[]>;
   variations?: ProductVariation[];
+  selectedVariations?: Record<string, string>;
+  cartItemId?: string;
 }

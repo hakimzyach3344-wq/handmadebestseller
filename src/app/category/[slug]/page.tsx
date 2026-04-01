@@ -33,7 +33,7 @@ export default async function CategoryPage({ params }: { params: { slug: string 
                 ) : (
                     <div className={styles.productGrid}>
                         {products.map((product: any, index: number) => (
-                            <ProductCard key={product.id} product={product} index={index} />
+                            <ProductCard key={product.id} product={product as any} index={index} />
                         ))}
                     </div>
                 )}

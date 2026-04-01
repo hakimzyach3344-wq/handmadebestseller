@@ -44,15 +44,18 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         }
     }, [items, isMounted]);
 
+    const getCartItemId = (product: Product) => product.cartItemId || product.id;
+
     const addItem = (product: Product) => {
+        const cId = getCartItemId(product);
         setItems((current) => {
-            const existing = current.find(item => item.id === product.id);
+            const existing = current.find(item => (item.cartItemId || item.id) === cId);
             if (existing) {
                 return current.map(item =>
-                    item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+                    (item.cartItemId || item.id) === cId ? { ...item, quantity: item.quantity + 1 } : item
                 );
             }
-            return [...current, { ...product, quantity: 1 }];
+            return [...current, { ...product, quantity: 1, cartItemId: cId }];
         });
         setLastAddedItem(product);
         setIsCartPopupOpen(true);
@@ -63,13 +66,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const closeCheckoutDrawer = () => setIsCheckoutDrawerOpen(false);
 
     const removeItem = (id: string) => {
-        setItems((current) => current.filter(item => item.id !== id));
+        setItems((current) => current.filter(item => (item.cartItemId || item.id) !== id));
     };
 
     const updateQuantity = (id: string, newQuantity: number) => {
         if (newQuantity < 1) return;
         setItems((current) =>
-            current.map(item => item.id === id ? { ...item, quantity: newQuantity } : item)
+            current.map(item => (item.cartItemId || item.id) === id ? { ...item, quantity: newQuantity } : item)
         );
     };
 

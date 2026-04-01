@@ -21,39 +21,49 @@ export default function CartPage() {
             ) : (
                 <div className={`${styles.cartLayout} slide-up`}>
                     <div className={styles.itemsList}>
-                        {items.map(item => (
-                            <div key={item.id} className={styles.item}>
-                                <div className={styles.itemImgWrapper}>
-                                    <img src={item.image} alt={item.title} className={styles.itemImg} />
-                                </div>
-                                <div className={styles.itemDetails}>
-                                    <div className={styles.itemHeader}>
-                                        <h3 className={styles.itemName}>{item.title}</h3>
-                                        <span className={styles.itemPrice}>${item.price.toFixed(2)}</span>
+                        {items.map(item => {
+                            const cId = item.cartItemId || item.id;
+                            return (
+                                <div key={cId} className={styles.item}>
+                                    <div className={styles.itemImgWrapper}>
+                                        <img src={item.image} alt={item.title} className={styles.itemImg} />
                                     </div>
-
-                                    <div className={styles.itemControls}>
-                                        <div className={styles.qtyControl}>
-                                            <button
-                                                className={styles.qtyBtn}
-                                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                            >−</button>
-                                            <span className={styles.qtyNum}>{item.quantity}</span>
-                                            <button
-                                                className={styles.qtyBtn}
-                                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                            >+</button>
+                                    <div className={styles.itemDetails}>
+                                        <div className={styles.itemHeader}>
+                                            <div>
+                                                <h3 className={styles.itemName}>{item.title}</h3>
+                                                {item.selectedVariations && Object.keys(item.selectedVariations).length > 0 && (
+                                                    <p className={styles.itemVariations} style={{ fontSize: '0.85rem', color: '#666', marginTop: '4px' }}>
+                                                        {Object.entries(item.selectedVariations).map(([k, v]) => `${k}: ${v}`).join(', ')}
+                                                    </p>
+                                                )}
+                                            </div>
+                                            <span className={styles.itemPrice}>${item.price.toFixed(2)}</span>
                                         </div>
-                                        <button
-                                            className={styles.removeBtn}
-                                            onClick={() => removeItem(item.id)}
-                                        >
-                                            Remove
-                                        </button>
+
+                                        <div className={styles.itemControls}>
+                                            <div className={styles.qtyControl}>
+                                                <button
+                                                    className={styles.qtyBtn}
+                                                    onClick={() => updateQuantity(cId, item.quantity - 1)}
+                                                >−</button>
+                                                <span className={styles.qtyNum}>{item.quantity}</span>
+                                                <button
+                                                    className={styles.qtyBtn}
+                                                    onClick={() => updateQuantity(cId, item.quantity + 1)}
+                                                >+</button>
+                                            </div>
+                                            <button
+                                                className={styles.removeBtn}
+                                                onClick={() => removeItem(cId)}
+                                            >
+                                                Remove
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
 
                     <div className={styles.summary}>
