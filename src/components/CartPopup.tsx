@@ -58,11 +58,11 @@ export default function CartPopup() {
                                 {items.map((item) => (
                                     <div key={item.id} className={styles.cartItem}>
                                         <div className={styles.itemImageWrapper}>
-                                            <img src={item.image} alt={item.title} className={styles.itemImage} />
+                                            <img src={item.image} alt={item.name} className={styles.itemImage} />
                                         </div>
                                         <div className={styles.itemDetails}>
                                             <div className={styles.itemHeader}>
-                                                <h4 className={styles.itemName}>{item.title}</h4>
+                                                <h4 className={styles.itemName}>{item.name}</h4>
                                                 <button className={styles.removeBtn} onClick={() => removeItem(item.id)}>
                                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                                         <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6" strokeLinecap="round" strokeLinejoin="round" />

@@ -229,9 +229,9 @@ export default function Navbar({ megaMenuProducts = {} }: NavbarProps) {
                                                     onClick={() => setIsMegaMenuOpen(false)}
                                                 >
                                                     <div className={styles.megaMenuProductImage}>
-                                                        <img src={product.image} alt={product.title} />
+                                                        <img src={product.image} alt={product.name} />
                                                     </div>
-                                                    <p className={styles.megaMenuProductName}>{product.title}</p>
+                                                    <p className={styles.megaMenuProductName}>{product.name}</p>
                                                     <p className={styles.megaMenuProductPrice}>${product.price.toFixed(2)}</p>
                                                 </Link>
                                             ))}

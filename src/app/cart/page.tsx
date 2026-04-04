@@ -24,11 +24,11 @@ export default function CartPage() {
                         {items.map(item => (
                             <div key={item.id} className={styles.item}>
                                 <div className={styles.itemImgWrapper}>
-                                    <img src={item.image} alt={item.title} className={styles.itemImg} />
+                                    <img src={item.image} alt={item.name} className={styles.itemImg} />
                                 </div>
                                 <div className={styles.itemDetails}>
                                     <div className={styles.itemHeader}>
-                                        <h3 className={styles.itemName}>{item.title}</h3>
+                                        <h3 className={styles.itemName}>{item.name}</h3>
                                         <span className={styles.itemPrice}>${item.price.toFixed(2)}</span>
                                     </div>
 

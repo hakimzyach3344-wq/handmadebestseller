@@ -29,9 +29,9 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
     // Search logic
     const matchedProducts = productsData.filter(product => {
         return (
-            (product.title || '').toLowerCase().includes(query) ||
-            (product.description || '').toLowerCase().includes(query) ||
-            (product.category || '').toLowerCase().includes(query)
+            product.name.toLowerCase().includes(query) ||
+            product.description.toLowerCase().includes(query) ||
+            product.category.toLowerCase().includes(query)
         );
     });
 

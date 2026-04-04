@@ -5,9 +5,20 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
-import { Product } from '@/types';
 import NotifyMePopup from './NotifyMePopup';
 import styles from './ProductCard.module.css';
+
+interface Product {
+    id: string | number;
+    title: string;
+    price: number;
+    description: string;
+    image: string;
+    images?: string[];
+    category: string;
+    slug: string;
+    outOfStock?: boolean;
+}
 
 export default function ProductCard({ product, index }: { product: Product; index: number }) {
     const { addItem } = useCart();
@@ -128,7 +139,7 @@ export default function ProductCard({ product, index }: { product: Product; inde
             {showNotify && (
                 <NotifyMePopup
                     productName={product.title}
-                    productId={product.id}
+                    productId={typeof product.id === 'string' ? product.id : product.id.toString()}
                     onClose={() => setShowNotify(false)}
                 />
             )}
