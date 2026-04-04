@@ -92,20 +92,28 @@ export default function CheckoutDrawer() {
                     <div className={styles.orderSummary}>
                         <h4 className={styles.sectionTitle}>Order Summary</h4>
                         <div className={styles.drawerItemsList}>
-                            {items.map(item => (
-                                <div key={item.id} className={styles.drawerItem}>
-                                    <div className={styles.drawerItemImageWrapper}>
-                                        <img src={item.image} alt={item.name} className={styles.drawerItemImage} />
+                            {items.map(item => {
+                                const cId = item.cartItemId || item.id;
+                                return (
+                                    <div key={cId} className={styles.drawerItem}>
+                                        <div className={styles.drawerItemImageWrapper}>
+                                            <img src={item.image} alt={item.title} className={styles.drawerItemImage} />
+                                        </div>
+                                        <div className={styles.drawerItemDetails}>
+                                            <h5 className={styles.drawerItemName}>{item.title}</h5>
+                                            {item.selectedVariations && Object.keys(item.selectedVariations).length > 0 && (
+                                                <p style={{ fontSize: '0.75rem', color: '#666', marginTop: '2px', marginBottom: '2px' }}>
+                                                    {Object.entries(item.selectedVariations).map(([k, v]) => `${k}: ${v}`).join(', ')}
+                                                </p>
+                                            )}
+                                            <p className={styles.drawerItemQty}>Qty: {item.quantity}</p>
+                                        </div>
+                                        <div className={styles.drawerItemPrice}>
+                                            ${(item.price * item.quantity).toFixed(2)}
+                                        </div>
                                     </div>
-                                    <div className={styles.drawerItemDetails}>
-                                        <h5 className={styles.drawerItemName}>{item.name}</h5>
-                                        <p className={styles.drawerItemQty}>Qty: {item.quantity}</p>
-                                    </div>
-                                    <div className={styles.drawerItemPrice}>
-                                        ${(item.price * item.quantity).toFixed(2)}
-                                    </div>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                         <div className={styles.orderTotal}>Total <span className={styles.totalAmount}>${cartTotal.toFixed(2)}</span></div>
                     </div>

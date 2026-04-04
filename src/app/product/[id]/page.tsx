@@ -21,7 +21,15 @@ const RichText = ({ text, productSlug }: { text: string, productSlug?: string })
     // Pattern to detect guide/spec lines like "📄 Download Size Guide" etc.
     const linkPattern = /(?:📄\s*)?(?:Download|View)\s+(?:Size Guide|Spec Sheet|Product Details|Installation Guide)(?:\s*\(PDF\))?/gi;
 
-    const parts = text.split('\n');
+    // Clean HTML tags from the description
+    const cleanText = text
+        .replace(/<br\s*\/?>/gi, '\n')
+        .replace(/<\/p>/gi, '\n\n')
+        .replace(/<[^>]+>/g, '')
+        .replace(/\n\s*\n\s*\n/g, '\n\n') // Collapse excessive newlines
+        .trim();
+
+    const parts = cleanText.split('\n');
     return (
         <>
             {parts.map((line, i) => {
@@ -132,6 +140,23 @@ export default function ProductPage({ params }: { params: { id: string } }) {
     const currentVariation = hasVariations ? findMatchingVariation(selectedVariations) : null;
     const currentPrice = currentVariation?.price ? Number(currentVariation.price) : product.price;
     const hasDifferentPrices = variations ? new Set(variations.map(v => v.price).filter(Boolean)).size > 1 : false;
+
+    const getProductForCart = () => ({
+        ...product,
+        price: currentPrice,
+        image: mainImage,
+        selectedVariations: hasVariations ? selectedVariations : undefined,
+        cartItemId: hasVariations ? `${product.id}-${Object.values(selectedVariations).join('-')}` : product.id
+    });
+
+    const handleAddToCart = () => {
+        addItem(getProductForCart() as any);
+    };
+
+    const handleBuyNow = () => {
+        addItem(getProductForCart() as any);
+        openCheckoutDrawer();
+    };
 
     // Helper for formatting text and brand swapping
     const formatText = (text: string) => {
@@ -339,15 +364,12 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                                 </button>
                             ) : (
                                 <>
-                                    <button className={styles.btnCart} onClick={() => addItem(product as any)}>
+                                    <button className={styles.btnCart} onClick={handleAddToCart}>
                                         Add to Cart
                                     </button>
                                     <button
                                         className={styles.btnBuyNow}
-                                        onClick={() => {
-                                            addItem(product as any);
-                                            openCheckoutDrawer();
-                                        }}
+                                        onClick={handleBuyNow}
                                     >
                                         Buy it Now
                                     </button>
@@ -366,7 +388,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                         </div>
 
                         <div className={styles.actions}>
-                            <button className={styles.btnCart} onClick={() => addItem(product as any)}>
+                            <button className={styles.btnCart} onClick={handleAddToCart}>
                                 Add to Cart
                             </button>
                         </div>
@@ -446,15 +468,12 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                     </button>
                 ) : (
                     <>
-                        <button className={styles.stickyBtnCart} onClick={() => addItem(product as any)}>
+                        <button className={styles.stickyBtnCart} onClick={handleAddToCart}>
                             Add to Cart
                         </button>
                         <button
                             className={styles.stickyBtnBuy}
-                            onClick={() => {
-                                addItem(product as any);
-                                openCheckoutDrawer();
-                            }}
+                            onClick={handleBuyNow}
                         >
                             Buy it Now
                         </button>

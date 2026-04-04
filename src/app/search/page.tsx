@@ -93,7 +93,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
                 {matchedProducts.length > 0 ? (
                     <div className={styles.productGrid}>
                         {matchedProducts.map((product, index) => (
-                            <ProductCard key={product.id} product={product} index={index} />
+                            <ProductCard key={product.id} product={product as any} index={index} />
                         ))}
                     </div>
                 ) : (
