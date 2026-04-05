@@ -275,7 +275,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                         <div className={styles.imageGallery}>
                             <img
                                 src={mainImage}
-                                alt={product.name}
+                                alt={product.title}
                                 className={styles.mainImage}
                                 onClick={() => setIsLightboxOpen(true)}
                                 style={{ cursor: 'zoom-in' }}
@@ -290,7 +290,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                                             onClick={() => setMainImage(img)}
                                             aria-label={`View image ${idx + 1}`}
                                         >
-                                            <img src={img} alt={`${product.name} alternate view ${idx + 1}`} className={styles.thumbnailImg} loading="lazy" />
+                                            <img src={img} alt={`${product.title} alternate view ${idx + 1}`} className={styles.thumbnailImg} loading="lazy" />
                                         </button>
                                     ))}
                                 </div>
@@ -305,7 +305,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
                             <Link href={`/category/${product.category.toLowerCase()}`}>{product.category}</Link>
                         </div>
 
-                        <h1 className={styles.title}>{product.name}</h1>
+                        <h1 className={styles.title}>{product.title}</h1>
                         {isOutOfStock ? (
                             <p className={styles.outOfStockLabel}>Out of Stock</p>
                         ) : (
@@ -491,7 +491,7 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
             {showNotifyPopup && (
                 <NotifyMePopup
-                    productName={product.name}
+                    productName={product.title}
                     productId={product.id}
                     onClose={() => setShowNotifyPopup(false)}
                 />

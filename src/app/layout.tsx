@@ -37,7 +37,7 @@ export default function RootLayout({
       .slice(0, 4)
       .map(p => ({
         id: p.id,
-        name: p.name,
+        title: p.title,
         price: p.price,
         image: p.image
       }));

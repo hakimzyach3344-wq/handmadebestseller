@@ -31,7 +31,7 @@ export async function POST(req: Request) {
                 price_data: {
                     currency: 'usd',
                     product_data: {
-                        name: item.name || 'Unknown Product',
+                        name: item.title || 'Unknown Product',
                         images: imageUrls,
                     },
                     unit_amount: amount,
